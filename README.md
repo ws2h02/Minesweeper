@@ -13,9 +13,9 @@ This game is text-based minesweeper, where player will need to navigate safely t
 Whenever you opened a safe slot, it will show the number of mines next to it in all 8 directions. If you ever opened a slot with 0, it game will automatically opened all the slots of 0 connected to the slot you chose, and all the slots connected to them!
 
 Features:         
-Difficulties setting        
-Size setting        
-Timer       
-Restart function        
-Randomness        
-Save and load       
+1. Random Everytime.        
+2. Difficulties setting        
+3. Customize minefield size and number of mines.
+4. Save and load
+5. Timer       
+6. Restart function                     
