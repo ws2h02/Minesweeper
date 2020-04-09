@@ -19,3 +19,4 @@ Features:
 4. Save and load
 5. Timer       
 6. Restart function                     
+7. Marking system (Mark the mine and uncertain block)
