@@ -20,3 +20,4 @@ Features:
 5. Timer / Step counter      
 6. Restart function                     
 7. Marking system (Mark the mine and uncertain block)
+8. Undo function (nout sure)
