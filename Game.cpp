@@ -68,6 +68,7 @@ int main(){
     goingon = keepon();
   }
   // system output: gameboard, win or lose
-  
+  printgameboard();
+  cout << "You " << result << endl;
   
 }
