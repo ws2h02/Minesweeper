@@ -69,6 +69,6 @@ int main(){
   }
   // system output: gameboard, win or lose
   printgameboard();
-  cout << "You " << result << endl;
+  cout << "You " << result << "!" << endl;
   
 }
