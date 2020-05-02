@@ -17,6 +17,6 @@ Features:
 2. Difficulties setting        
 3. Customize minefield size and number of mines.
 4. Save and load
-5. Timer       
+5. Timer / Step counter      
 6. Restart function                     
 7. Marking system (Mark the mine and uncertain block)
