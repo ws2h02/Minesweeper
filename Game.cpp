@@ -3,6 +3,7 @@
 using namespace std;
 
 void producemine(){
+  //first step must not lose, if player choose a bomb in his first step, replace it to other block.
 }
 
 void producegameboard(int height, int width, int mines){
