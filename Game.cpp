@@ -5,7 +5,8 @@ using namespace std;
 void producemine(){
 }
 
-void producegameboard(){
+void producegameboard(int height, int width, int mines){
+  
 }
 
 void gamesetting(string diff){
@@ -36,7 +37,7 @@ void gamesetting(string diff){
       cout << "Reinput the difficulty: ";
       cin >> diff;
       gamesetting(diff);
-    producegameboard(int height, int width, int mines);
+    producegameboard(height, width, mines);
   }
 }
 
