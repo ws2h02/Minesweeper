@@ -61,19 +61,24 @@ int main(){
   // player input: difficulty(number? or string?[simple/normal/hard/customized]), size(one number?[square], two number[rectangle]), number of mines[if player choose customized]
   string diff,player_input;
   bool goingon = true
-  cout << "Please input the game setting:" >> endl;
-  cout << "Difficulty: ";
-  cin >> diff;
-  gamesetting(diff);
-  // repeat step 2 and 3 until player win
-  while( goingon() ){
-  // system output: gameboard
-    printgameboard();
-  // player input: command (game control, save and load)
-    cout << "Please input a command: ";
-    cin >> player_input;
-    scaninput(player_input);
-    goingon = keepon();
+  cout << "Welcome to Minesweeper: Word Edition !!"
+  cout << "New Game?" << endl << "Load Game?" << endl << "(N/Y)";
+  char game;
+  cin << game;
+  if (game==N){
+    cout << "Difficulty?" << endl << "(simple / normal / hard / custom)";
+    cin >> diff;
+    gamesetting(diff);
+    // repeat step 2 and 3 until player win
+    while( goingon() ){
+    // system output: gameboard
+      printgameboard();
+    // player input: command (game control, save and load)
+      cout << "Please input a command: ";
+      cin >> player_input;
+      scaninput(player_input);
+      goingon = keepon();
+    }
   }
   // system output: gameboard, win or lose
   printgameboard();
