@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 void producemine(){
@@ -62,10 +63,13 @@ int main(){
   string diff,player_input;
   bool goingon = true
   cout << "Welcome to Minesweeper: Word Edition !!"
-  cout << "New Game?" << endl << "Load Game?" << endl << "(N/Y)";
-  char game;
-  cin << game;
-  if (game==N){
+  cout << "New Game?" << endl << "Load Game?" << endl << "(N/L)";
+  cin >> game;
+  while (game!="N" && game!="L"){
+    cout << "invalid input! Please try again" << endl;
+    cin >> game;
+  }
+  if (game=="N"){
     cout << "Difficulty?" << endl << "(simple / normal / hard / custom)";
     cin >> diff;
     gamesetting(diff);
@@ -74,11 +78,24 @@ int main(){
     // system output: gameboard
       printgameboard();
     // player input: command (game control, save and load)
-      cout << "Please input a command: ";
+      cout << "Please input a command (open / flag / : ";
       cin >> player_input;
       scaninput(player_input);
       goingon = keepon();
     }
+   if (game=="L"){
+     ofstream fout;
+     string savefile;
+     cout << "Loading file name: ";
+     cin >> savefile;
+     fout.open(savefile);
+     while ( fout.fail() ) {
+       cout << "Error in file opening!" << endl;
+       exit(1);
+       cout << "Loading file name: ";
+       cin >> savefile;
+       fout.open(savefile);
+     }
   }
   // system output: gameboard, win or lose
   printgameboard();
