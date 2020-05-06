@@ -39,8 +39,11 @@ void gamesetting(string diff){
       cout << "Reinput the difficulty: ";
       cin >> diff;
       gamesetting(diff);
-    producegameboard(height, width, mines);
   }
+  cout << "Please choose your starting slot: ";
+  int firstmove;
+  cin >> firstmove;
+  producegameboard(height, width, mines, firstmove);
 }
 
 void save(){
