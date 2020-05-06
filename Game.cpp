@@ -78,7 +78,7 @@ int main(){
     // system output: gameboard
       printgameboard();
     // player input: command (game control, save and load)
-      cout << "Please input a command (open / flag / : ";
+      cout << "Please input a command (open(o) / flag(f) / save&quit(s))";
       cin >> player_input;
       scaninput(player_input);
       goingon = keepon();
