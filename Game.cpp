@@ -42,6 +42,12 @@ void gamesetting(string diff){
   }
 }
 
+void save(){
+}
+
+void load(){
+}
+
 void printgameboard(){
 }
 
