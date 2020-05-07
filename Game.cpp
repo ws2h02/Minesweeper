@@ -47,12 +47,8 @@ void gamesetting(string diff){
       cin >> width;
       cout << "Mines: ";
       cin >> mines;
-    default:
-      cout << "Invalid input" << endl;
-      cout << "Reinput the difficulty: ";
-      cin >> diff;
-      gamesetting(diff);
   }
+  //input?
   cout << "Please choose your starting slot: ";
   int firstmove;
   cin >> firstmove;
@@ -63,6 +59,19 @@ void save(){
 }
 
 void load(){
+  ofstream fout;
+  string savefile;
+  cout << "Loading file name: ";
+  cin >> savefile;
+  fout.open(savefile);
+  while ( fout.fail() ) {
+    cout << "Error in file opening!" << endl;
+    exit(1);
+    cout << "Loading file name: ";
+    cin >> savefile;
+    fout.open(savefile);
+  }
+  //how to load the board
 }
 
 void printgameboard(){
@@ -73,7 +82,7 @@ void scaninput(string player_input){
   string value = ;//input letter left
   switch(player_input)
   {
-    case "Save":
+    case "Save & Quit":
       
     case "StartANewGame"://asking are you sure to give it up and start a new game
       
@@ -82,6 +91,8 @@ void scaninput(string player_input){
     case "Flag"://what if flag a flaged block - unflagged or send error
     
     case "Time":
+      
+    case "Quit without Saving":
 }
 
 bool keepon(){
@@ -89,46 +100,44 @@ bool keepon(){
   
 int main(){
   // player input: difficulty(number? or string?[simple/normal/hard/customized]), size(one number?[square], two number[rectangle]), number of mines[if player choose customized]
-  string diff,player_input;
+  string diff,player_input,game;
   bool goingon = true
-  cout << "Welcome to Minesweeper: Word Edition !!"
-  cout << "New Game?" << endl << "Load Game?" << endl << "(N/L)";
+  cout << "Welcome to Minesweeper: Word Edition!!"
+  cout << "New Game or Load Game?" << endl << "(N / L)";
   cin >> game;
-  while (game!="N" && game!="L"){
-    cout << "invalid input! Please try again" << endl;
+  while (game != "N" && game != "L"){
+    cout << "Invalid input! Please try again." << endl;
     cin >> game;
   }
   if (game=="N"){
-    cout << "Difficulty?" << endl << "(simple / normal / hard / custom)";
+    cout << "Difficulty?" << endl << "(Simple / Normal / Hard / Custom)";
     cin >> diff;
+    while (diff != "Simple" && diff != "Normal" && diff != "Hard" && diff != "Custom"){
+      cout << "Invalid input! Please try again." << endl;
+      cin >> diff;
+    }
     gamesetting(diff);
-    // repeat step 2 and 3 until player win
-    printgameboard();// just print a fake board
-    while( goingon() ){
+  }
+  if (game=="L"){
+    load();
+  }
+
+  // repeat step 2 and 3 until player win
+
+  printgameboard();//May be need to separate game board and show board
+  while( goingon ){
     // system output: gameboard
     // player input: command (game control, save and load)
-      cout << "Please input a command (open(o) / flag(f) / save&quit(s))";
-      cin >> player_input;
-      scaninput(player_input);
+    cout << "Please input a command." << endl << "(Open(o) / flag(f) / save&quit(s))";
+    cin >> player_input;
+    scaninput(player_input);
+    goingon = keepon();
+    if(goingon){
       printgameboard();
-      goingon = keepon();
     }
-   if (game=="L"){
-     ofstream fout;
-     string savefile;
-     cout << "Loading file name: ";
-     cin >> savefile;
-     fout.open(savefile);
-     while ( fout.fail() ) {
-       cout << "Error in file opening!" << endl;
-       exit(1);
-       cout << "Loading file name: ";
-       cin >> savefile;
-       fout.open(savefile);
-     }//Then? What happen after loading
   }
   // system output: gameboard, win or lose
-  printgameboard();
+  printgameboard();//printrealboard
   cout << "You " << result << "!" << endl;
   
 }
