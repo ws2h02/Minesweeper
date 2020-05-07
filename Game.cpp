@@ -102,6 +102,13 @@ void load(){
 }
 
 void printboard(char board[], int height, int width){
+  for(int i = 0; i < height; ++i){
+    cout << i << " ";
+    for(int j = 0; j < width; ++j){
+      cout << board[i][j] << " ";  
+    }
+    cout << endl;
+  }
 }
   
 void open(char showboard[], char realboard[], int open_height, int open_width){
