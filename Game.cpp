@@ -22,7 +22,37 @@ void producemine(int height,int width, char board[], int firstheight, int firstw
 }
   
 void producerealboard(char realboard[], int height, int width){//maybe useless
-  
+  for(int i = 0; i < height; ++i){
+    for(int j = 0; j < width; ++j){
+      if(realboard[i][j] == '-'){
+        int count = 0;
+        if(realboard[i-1][j] == '*'){
+          count += 1;
+        }
+        if(realboard[i+1][j] == '*'){
+          count += 1;
+        }
+        if(realboard[i][j-1] == '*'){
+          count += 1;
+        }
+        if(realboard[i][j+1] == '*'){
+          count += 1;
+        }
+        if(realboard[i-1][j-1] == '*'){
+          count += 1;
+        }
+        if(realboard[i-1][j+1] == '*'){
+          count += 1;
+        }
+        if(realboard[i+1][j-1] == '*'){
+          count += 1;
+        }
+        if(realboard[i+1][j-1] == '*'){
+          count += 1;
+        }
+        realboard[i][j] = count;
+      }
+  }
 }
 
 void gamesetting(string diff, int & height, int & width, int & mines;){
@@ -74,7 +104,13 @@ void load(){
 void printboard(char board[], int height, int width){
 }
   
-void open(char showboard[], char realboard[], int open_height, int open_width){
+void open(char showboard[], char realboard[]){
+  int open_height, open_width;
+  cin >> open_height >> open_width;
+  while(open_height >= height || open_width >= width){
+    cout << "Invalid input! Please try again." << endl;
+    cin >> open_height >> open_width;
+  }
 }
 
 void flag(char showboard[], int flag_height, int flag_width){//what if flag a flaged block - unflagged or send error
@@ -83,18 +119,12 @@ void flag(char showboard[], int flag_height, int flag_width){//what if flag a fl
 void scaninput(string player_input,int height, int width, char showboard[], char realboard[]){
   switch(command)
   {
-    case "Save & Quit":
+    case "Save":
       save();
-    case "StartANewGame"://asking are you sure to give it up and start a new game
+    case "Restart"://asking are you sure to give it up and start a new game
       
     case "Open":
-      int open_height, open_width;
-      cin >> open_height >> open_width;
-      while(open_height >= height || open_width >= width){
-        cout << "Invalid input! Please try again." << endl;
-        cin >> open_height >> open_width;
-      }
-      open(showboard, realboard, open_height, open_width);
+      open(showboard, realboard);
     case "Flag":
       int flag_height, flag_width;
       cin >> flag_height >> flag_width;
@@ -105,11 +135,11 @@ void scaninput(string player_input,int height, int width, char showboard[], char
       flag(showboard, flag_height, flag_width)
     case "Time":
       
-    case "Quit without Saving":
+    case "Quit":
   }
 }
 
-bool keepon(){
+bool keepon(){//checking showboard have '*' or not
 }
   
 int main(){
@@ -145,7 +175,7 @@ int main(){
     for(int i = 0; i < height; ++i){
       realboard[i] = new int[width];
       for(int j = 0;j < width; ++j0{
-        realboard[i][j] = ' ';
+        realboard[i][j] = '-';
       }
     }
     producerealboard(realboard, height, width)
@@ -170,7 +200,7 @@ int main(){
   while( goingon ){
     // system output: gameboard
     // player input: command (game control, save and load)
-    cout << "Please input a command." << endl << "(Open / Flag / Save)"//ALL command;
+    cout << "Please input a command." << endl << "(Open / Flag / Save / Restart / Quit)"//ALL command;
     cin >> player_input;
     while (player_input != those command){
       cout << "Invalid input! Please try again." << endl;
