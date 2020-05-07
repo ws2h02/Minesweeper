@@ -5,7 +5,7 @@
 #include <ctime>
 using namespace std;
 
-void producemine(int height,int width, char board[], int firstheight, int firstwidth){
+void producemine(int height,int width, char **board, int firstheight, int firstwidth){
   //first step must not lose, if player choose a bomb in his first step, replace it to other block.
   bool bury = true;
   while(bury){
@@ -21,63 +21,115 @@ void producemine(int height,int width, char board[], int firstheight, int firstw
   }
 }
   
-void producerealboard(char realboard[], int height, int width){//maybe useless
+void producerealboard(char **realboard, int height, int width){
   for(int i = 0; i < height; ++i){
     for(int j = 0; j < width; ++j){
       if(realboard[i][j] == '-'){
         int count = 0;
-        if(realboard[i-1][j] == '*'){
-          count += 1;
+        if(i-1 >= 0){
+          if(realboard[i-1][j] == '*'){
+            count += 1;
+          }
         }
-        if(realboard[i+1][j] == '*'){
-          count += 1;
+        if(i+1 < height){
+          if(realboard[i+1][j] == '*'){
+            count += 1;
+          }
         }
-        if(realboard[i][j-1] == '*'){
-          count += 1;
+        if(j-1 >= 0){
+          if(realboard[i][j-1] == '*'){
+            count += 1;
+          }
         }
-        if(realboard[i][j+1] == '*'){
-          count += 1;
+        if(j+1 < width){
+          if(realboard[i][j+1] == '*'){
+            count += 1;
+          }
         }
-        if(realboard[i-1][j-1] == '*'){
-          count += 1;
+        if(i-1 >= 0 && j-1 >= 0){
+          if(realboard[i-1][j-1] == '*'){
+            count += 1;
+          }
         }
-        if(realboard[i-1][j+1] == '*'){
-          count += 1;
+        if(i-1 >= 0 && j+1 < width){
+          if(realboard[i-1][j+1] == '*'){
+            count += 1;
+          }
         }
-        if(realboard[i+1][j-1] == '*'){
-          count += 1;
+        if(i+1 < height && j-1 >= 0){
+          if(realboard[i+1][j-1] == '*'){
+            count += 1;
+          }
         }
-        if(realboard[i+1][j-1] == '*'){
-          count += 1;
+        if(i+1 < height && j+1 < width){
+          if(realboard[i+1][j+1] == '*'){
+            count += 1;
+          }
         }
-        realboard[i][j] = count;
+        realboard[i][j] = count + '0';
       }
+    }
   }
 }
 
-void gamesetting(string diff, int & height, int & width, int & mines;){
-  switch(diff)
+void gamesetting(string diff, int & height, int & width, int & mines){
+  int n;
+  if(diff == "Simple"){
+    n = 0;
+  }
+  else if(diff == "Normal"){
+    n = 1;
+  }
+  else if(diff == "Hard"){
+    n = 2;
+  }
+  else if(diff == "Customized"){
+    n = 3;
+  }
+  switch(n)
   {
-    case "simple":
+    case 0:
       height = 9;
       width = 9;
       mines = 10;
-    case "normal":
+      break;
+    case 1:
       height = 16;
       width = 16;
       mines = 40;
-    case "hard":
+      break;
+    case 2:
       height = 16;
       width = 30;
       mines = 99;
-    case "customized":
+      break;
+    case 3:
       cout << "Height: ";
       cin >> height;
+      while(height <= 0){
+        cout << "Invaild input! Please try again.";
+        cin >> height;
+      }
       cout << "Width: ";
       cin >> width;
+      while(width <= 0){
+        cout << "Invaild input! Please try again.";
+        cin >> width;
+      }
       cout << "Mines: ";
       cin >> mines;
+      while(mines <= 0){
+        cout << "Invaild input! Please try again.";
+        cin >> mines;
+      }
+      break;
   }
+}
+
+void showtime(){
+}
+
+void quit(){
 }
 
 void save(){
@@ -101,7 +153,12 @@ void load(){
   fout.close();
 }
 
-void printboard(char board[], int height, int width){
+void printboard(char **board, int height, int width){
+  cout << "  ";
+  for(int a = 0; a < width; ++a){
+    cout << a << " ";
+  }
+  cout << endl;
   for(int i = 0; i < height; ++i){
     cout << i << " ";
     for(int j = 0; j < width; ++j){
@@ -111,9 +168,9 @@ void printboard(char board[], int height, int width){
   }
 }
   
-void open(char showboard[], char realboard[], int open_height, int open_width){
+void open(char **showboard, char **realboard, int open_height, int open_width){
     if(realboard[open_height][open_width] == '0'){
-      showboard[open_height][open_width] = ' ';
+      showboard[open_height][open_width] = '0';
       open(showboard, realboard, open_height+1, open_width);
       open(showboard, realboard, open_height-1, open_width);
       open(showboard, realboard, open_height, open_width+1);
@@ -124,7 +181,7 @@ void open(char showboard[], char realboard[], int open_height, int open_width){
     }
 }
 
-void flag(char showboard[]){//what if flag a flaged block - unflagged or send error
+void flag(char **showboard, int height, int width){//what if flag a flaged block - unflagged or send error
   int flag_height, flag_width;
   cin >> flag_height >> flag_width;
   while(flag_height >= height || flag_width >= width){
@@ -136,21 +193,42 @@ void flag(char showboard[]){//what if flag a flaged block - unflagged or send er
   }
   else if(showboard[flag_height][flag_width] != '-'){
     cout << "That was opened! Please try again." << endl;
-    flag(showboard);
+    flag(showboard, height, width);
   }
   else{
     showboard[flag_height][flag_width] = 'P';
   }
 }
 
-void scaninput(string player_input,int height, int width, char showboard[], char realboard[]){
+void scaninput(string player_input,int height, int width, char **showboard, char **realboard){
+  int command;
+  if(player_input == "Save"){
+    command = 0;
+  }
+  else if(player_input == "Restart"){
+    command = 1;
+  }
+  else if(player_input == "Open"){
+    command = 2;
+  }
+  else if(player_input == "Flag"){
+    command = 3;
+  }
+  else if(player_input == "Time"){
+    command = 4;
+  }
+  else if(player_input == "Quit"){
+    command = 5;
+  }
+  
   switch(command)
   {
-    case "Save":
+    case 0:
       save();
-    case "Restart"://asking are you sure to give it up and start a new game
-      
-    case "Open":
+      break;
+    case 1://asking are you sure to give it up and start a new game
+      break;
+    case 2:
       int open_height, open_width;
       cin >> open_height >> open_width;
       while(open_height >= height || open_width >= width || showboard[open_height][open_width] != '-'){
@@ -168,15 +246,20 @@ void scaninput(string player_input,int height, int width, char showboard[], char
         }
       }
       open(showboard, realboard, open_height, open_width);
-    case "Flag":
-      flag(showboard)
-    case "Time":
-      
-    case "Quit":
+      break;
+    case 3:
+      flag(showboard, height, width);
+      break;
+    case 4:
+      showtime();
+      break;
+    case 5:
+      quit();
+      break;
   }
 }
 
-bool keepon(char showboard[],int height, int width){//checking showboard have '*' or not
+bool keepon(char **showboard,int height, int width){//checking showboard have '*' or not
   int notopen = 0;
   for(int i = 0; i < height; ++i){
     for(int j = 0; j < width; ++j){
@@ -195,67 +278,17 @@ bool keepon(char showboard[],int height, int width){//checking showboard have '*
     return true,false;
   }
 }
-  
-int main(){
-  // player input: difficulty(number? or string?[simple/normal/hard/customized]), size(one number?[square], two number[rectangle]), number of mines[if player choose customized]
-  string diff,player_input,game;
-  int height, width, mines;
+
+void playgame(char **showboard, char **realboard, int height, int width){
+  // repeat step 2 and 3 until player win
   bool goingon = true;
   bool win;
-  cout << "Welcome to Minesweeper: Word Edition!!"
-  cout << "New Game or Load Game?" << endl << "(N / L)";
-  cin >> game;
-  while (game != "N" && game != "L"){
-    cout << "Invalid input! Please try again." << endl;
-    cin >> game;
-  }
-  if (game=="N"){
-    cout << "Difficulty?" << endl << "(Simple / Normal / Hard / Custom)";
-    cin >> diff;
-    while (diff != "Simple" && diff != "Normal" && diff != "Hard" && diff != "Custom"){
-      cout << "Invalid input! Please try again." << endl;
-      cin >> diff;
-    }
-    gamesetting(diff, height, width, mines);
-    
-    char** showboard = new char*[height];
-    for(int i = 0; i < height; ++i){
-      showboard[i] = new int[width];
-      for(int j = 0; j < width; ++j){
-        showboard[i][j] = '-';
-      }
-    }
-    
-    char** realboard = new char*[height];
-    for(int i = 0; i < height; ++i){
-      realboard[i] = new int[width];
-      for(int j = 0;j < width; ++j){
-        realboard[i][j] = '-';
-      }
-    }
-    producerealboard(realboard, height, width);
-    printboard(showboard, height, width);
-    cout << "Please take your first step: " << endl << "First Step: (Height, Width)";
-    int firstheight, firstwidth;
-    cin >> firstheight >> firstwidth;
-    int tmp_mines = mines;
-    while(tmp_mines > 0){
-      producemine(height, width, realboard, firstheight, firstwidth);
-      tmp_mines -= 1;
-    }
-    open(showboard, realboard, firstheight, firstwidth);
-  }
-  if (game=="L"){
-    load();
-  }
-
-  // repeat step 2 and 3 until player win
-` 
+  string player_input;
   printboard(showboard, height, width);
   while( goingon ){
     // system output: gameboard
     // player input: command (game control, save and load)
-    cout << "Please input a command." << endl << "(Open / Flag / Save / Restart / Quit)"//ALL command;
+    cout << "Please input a command." << endl << "(Open / Flag / Save / Restart / Quit)";//ALL command
     cin >> player_input;
     while (player_input != "Open" && player_input != "Flag" && player_input != "Save" && player_input != "Restart" && player_input != "Quit"){
       cout << "Invalid input! Please try again." << endl;
@@ -268,12 +301,64 @@ int main(){
     }
   }
   if(win){
-    printboard(showboard);
+    printboard(showboard, height, width);
     cout << "You win!";
   }
   else{
-    printboard(showboard);
+    printboard(showboard, height, width);
     cout << "You lose!";
   }
+}
   
+int main(){
+  // player input: difficulty(number? or string?[simple/normal/hard/customized]), size(one number?[square], two number[rectangle]), number of mines[if player choose customized]
+  string diff,game;
+  int height, width, mines;
+  cout << "Welcome to Minesweeper: Word Edition!!";
+  cout << "New Game or Load Game?" << endl << "(N / L): ";
+  cin >> game;
+  while (game != "N" && game != "L"){
+    cout << "Invalid input! Please try again." << endl;
+    cin >> game;
+  }
+  if (game=="N"){
+    cout << "Difficulty?" << endl << "(Simple / Normal / Hard / Custom): ";
+    cin >> diff;
+    while (diff != "Simple" && diff != "Normal" && diff != "Hard" && diff != "Custom"){
+      cout << "Invalid input! Please try again." << endl;
+      cin >> diff;
+    }
+    gamesetting(diff, height, width, mines);
+    
+    char** showboard = new char*[height];
+    for(int i = 0; i < height; ++i){
+      showboard[i] = new char[width];
+      for(int j = 0; j < width; ++j){
+        showboard[i][j] = '-';
+      }
+    }
+    
+    char** realboard = new char*[height];
+    for(int i = 0; i < height; ++i){
+      realboard[i] = new char[width];
+      for(int j = 0;j < width; ++j){
+        realboard[i][j] = '-';
+      }
+    }
+    printboard(showboard, height, width);
+    cout << "Please take your first step: " << endl << "First Step (Height, Width): ";
+    int firstheight, firstwidth;
+    cin >> firstheight >> firstwidth;
+    int tmp_mines = mines;
+    while(tmp_mines > 0){
+      producemine(height, width, realboard, firstheight, firstwidth);
+      tmp_mines -= 1;
+    }
+    producerealboard(realboard, height, width);
+    open(showboard, realboard, firstheight, firstwidth);
+    playgame(showboard, realboard, height, width);
+  }
+  if (game=="L"){
+    load();
+  }
 }
