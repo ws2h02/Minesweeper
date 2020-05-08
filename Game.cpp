@@ -173,6 +173,24 @@ void save(int height, int width, int step, int mines, char **showboard, char **r
     }
     fout.close();
 }
+
+void printboard(char **board, int height, int width, int mines, int step){
+  cout << "Mines Remained: " << mines << "   " << "Step Counter: " << step;
+  cout << endl;
+  cout << left;
+  cout << "   ";
+  for(int a = 0; a < width; ++a){
+    cout << setw(3) << a;
+  }
+  cout << endl;
+  for(int i = 0; i < height; ++i){
+    cout << setw(3) << i;
+    for(int j = 0; j < width; ++j){
+      cout << setw(3) << board[i][j];  
+    }
+    cout << endl;
+  }
+}
   
 void open(char **showboard, char **realboard, int open_height, int open_width, int height, int width){
     if(realboard[open_height][open_width] == '0' && showboard[open_height][open_width] == '-'){
@@ -383,24 +401,6 @@ void load(){
   playgame(showboard, realboard, height, width, mines, step);
 }
 
-void printboard(char **board, int height, int width, int mines, int step){
-  cout << "Mines Remained: " << mines << "   " << "Step Counter: " << step;
-  cout << endl;
-  cout << left;
-  cout << "   ";
-  for(int a = 0; a < width; ++a){
-    cout << setw(3) << a;
-  }
-  cout << endl;
-  for(int i = 0; i < height; ++i){
-    cout << setw(3) << i;
-    for(int j = 0; j < width; ++j){
-      cout << setw(3) << board[i][j];  
-    }
-    cout << endl;
-  }
-}
-  
 int main(){
   // player input: difficulty(number? or string?[simple/normal/hard/customized]), size(one number?[square], two number[rectangle]), number of mines[if player choose customized]
   string diff,game;
