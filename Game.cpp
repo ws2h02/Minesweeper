@@ -149,9 +149,6 @@ void gamesetting(string diff, int & height, int & width, int & mines){
 void showtime(){
 }
 
-void quit(){
-}
-
 void save(int height, int width, int step, int mines, char **showboard, char **realboard){
     ofstream fout;
     string filename;
