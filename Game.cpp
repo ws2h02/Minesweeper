@@ -169,7 +169,7 @@ void printboard(char **board, int height, int width){
 }
   
 void open(char **showboard, char **realboard, int open_height, int open_width, int height, int width){
-    if(realboard[open_height][open_width] == '0'){
+    if(realboard[open_height][open_width] == '0' && showboard[open_height][open_width] == '-'){
       showboard[open_height][open_width] = '0';
       if(open_height+1 < height){
         open(showboard, realboard, open_height+1, open_width, height, width);
@@ -267,12 +267,13 @@ void scaninput(string player_input,int height, int width, char **showboard, char
   }
 }
 
-bool keepon(char **showboard,int height, int width){//checking showboard have '*' or not
+bool keepon(char **showboard, int height, int width, bool & win){//checking showboard have '*' or not
   int notopen = 0;
   for(int i = 0; i < height; ++i){
     for(int j = 0; j < width; ++j){
       if(showboard[i][j] == '*'){
-        return false,false;
+        win = false;
+        return false;
       }
       else if(showboard[i][j] == '-'){
         notopen += 1;
@@ -280,10 +281,12 @@ bool keepon(char **showboard,int height, int width){//checking showboard have '*
     }
   }
   if(notopen == 0){
-    return false,true;
+    win = true;
+    return false;
   }
   else{
-    return true,false;
+    win = false;
+    return true;
   }
 }
 
@@ -303,7 +306,7 @@ void playgame(char **showboard, char **realboard, int height, int width){
       cin >> player_input;
     }
     scaninput(player_input, height, width, showboard, realboard);
-    goingon,win = keepon(showboard, height, width);
+    keepon(showboard, height, width, win);
     if(goingon){
       printboard(showboard, height, width);
     }
