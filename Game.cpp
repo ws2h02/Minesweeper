@@ -276,8 +276,8 @@ void scaninput(string player_input,int height, int width, char **showboard, char
       break;
     case 2:
       int open_height, open_width;
-      cout << "Please input your next move:" << endl << "(Height, Width): ";
-      cin >> open_height >> open_width;
+      cout << "Please input your next move:" << endl << "(X Y): ";
+      cin >> open_width >> open_height;
       while(open_height >= height || open_width >= width || showboard[open_height][open_width] != '-'){
         if(open_height >= height || open_width >= width){
           cout << "Out of range! Please try again." << endl;
@@ -447,9 +447,9 @@ int main(){
     }
     step = 0;
     printboard(showboard, height, width, mines, step);
-    cout << "Please take your first step: " << endl << "(Height, Width): ";
+    cout << "Please take your first step: " << endl << "(X Y): ";
     int firstheight, firstwidth;
-    cin >> firstheight >> firstwidth;
+    cin >> firstwidth >> firstheight;
     int tmp_mines = mines;
     while(tmp_mines > 0){
       producemine(height, width, realboard, firstheight, firstwidth);
