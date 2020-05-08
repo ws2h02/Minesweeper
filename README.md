@@ -25,14 +25,13 @@ Features (vis-a-vis each of the items 1 to 5 listed under coding requirements ab
 2. Using struct to save game setting data         
 3. a. Include 4 difficulty settings using dynamic 2-D arrays           
    b. Customize minefield size and number of mines using dynamic 2-D arrays         
-4. Save and load function using file input/output(using fstream)
+4. Save and load function using file input/output (using fstream)
 5. Separating function by player command and system control
 6. Show the amount of time spent when called
 (using chrono, ctime)              
 7. Include step counter on screen            
 8. Include restart function                     
 9. Include flag system (Flag the mine) 
-(Flag again will remove the flag instead)
   
 Additionay libraries:
 1. string
