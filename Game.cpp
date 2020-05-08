@@ -225,10 +225,10 @@ void open(char **showboard, char **realboard, int open_height, int open_width, i
 
 void flag(char **showboard, int height, int width){//what if flag a flaged block - unflagged or send error
   int flag_height, flag_width;
-  cin >> flag_height >> flag_width;
+  cin >> flag_width >> flag_height;
   while(flag_height >= height || flag_width >= width){
     cout << "Out of range! Please try again." << endl;
-    cin >> flag_height >> flag_width;
+    cin >> flag_width >> flag_height;
   }
   if(showboard[flag_height][flag_width] == 'P'){
     showboard[flag_height][flag_width] = '-';
@@ -268,21 +268,21 @@ void scaninput(string player_input,int height, int width, char **showboard, char
       while(open_height >= height || open_width >= width || showboard[open_height][open_width] != '-'){
         if(open_height >= height || open_width >= width){
           cout << "Out of range! Please try again." << endl;
-          cin >> open_height >> open_width;
+          cin >> open_width >> open_height;
         }
         else if(showboard[open_height][open_width] == 'P'){
           cout << "That was flagged! Please try again." << endl;
-          cin >> open_height >> open_width;
+          cin >> open_width >> open_height;
         }
         else if(showboard[open_height][open_width] != '-'){
           cout << "That was opened! Please try again." << endl;
-          cin >> open_height >> open_width;
+          cin >> open_width >> open_height;
         }
       }
       open(showboard, realboard, open_height, open_width, height, width);
       break;
     case 2:
-      cout << "Please input the position:" << endl << "(Height, Width): ";
+      cout << "Please input the position:" << endl << "(X, Y): ";
       flag(showboard, height, width);
       break;
   }
