@@ -357,9 +357,9 @@ void playgame(char **showboard, char **realboard, int height, int width, int min
             }
             step = 0;
             printboard(showboard, height, width, mines, step);
-            cout << "Please take your first step: " << endl << "(Y X): ";
+            cout << "Please take your first step: " << endl << "(X Y): ";
             int firstheight, firstwidth;
-            cin >> firstheight >> firstwidth;
+            cin >> firstwidth >> firstheight;
             cout << "Creating minefield..." << endl;
             int tmp_mines = mines;
             while(tmp_mines > 0){
