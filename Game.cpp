@@ -269,22 +269,18 @@ void scaninput(string player_input,int height, int width, char **showboard, char
 
 bool keepon(char **showboard, int height, int width, bool & win){//checking showboard have '*' or not
   int notopen = 0;
-  int boom = 0;
   for(int i = 0; i < height; ++i){
     for(int j = 0; j < width; ++j){
       if(showboard[i][j] == '*'){
-        boom += 1;
+        win = false;
+        return false;
       }
       else if(showboard[i][j] == '-'){
         notopen += 1;
       }
     }
   }
-  if(boom > 0){
-    win = false;
-    return false;
-  }
-  else if(notopen == 0){
+if(notopen == 0){
     win = true;
     return false;
   }
@@ -303,14 +299,14 @@ void playgame(char **showboard, char **realboard, int height, int width){
   while( goingon ){
     // system output: gameboard
     // player input: command (game control, save and load)
-    cout << "Please input a command." << endl << "(Open / Flag / Save / Restart / Quit)";//ALL command
+    cout << "Please input a command." << endl << "(Open / Flag / Save / Restart / Quit): ";//ALL command
     cin >> player_input;
     while (player_input != "Open" && player_input != "Flag" && player_input != "Save" && player_input != "Restart" && player_input != "Quit"){
       cout << "Invalid input! Please try again." << endl;
       cin >> player_input;
     }
     scaninput(player_input, height, width, showboard, realboard);
-    keepon(showboard, height, width, win);
+    goingon = keepon(showboard, height, width, win);
     if(goingon){
       printboard(showboard, height, width);
     }
