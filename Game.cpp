@@ -139,6 +139,7 @@ void gamesetting(string diff, int & height, int & width, int & mines){
         cout << "Invaild input! Please try again." << endl;
         if(mines > height*width-9){
           cout << "Too many mines!";
+        }
         cin >> mines;
       }
       break;
