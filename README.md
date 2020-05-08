@@ -25,3 +25,13 @@ Features:
 7. Include restart function                     
 8. Include flag system (Flag the mine) 
 (Flag again will remove the flag instead)
+  
+Additionay libraries:
+#include <string>
+#include <fstream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+#include <chrono>
+
+Compilation and execution instructions: 
