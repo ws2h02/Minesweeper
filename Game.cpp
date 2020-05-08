@@ -397,7 +397,6 @@ void load(){
     }
   }
   fin.close();
-  printboard(showboard, height, width, mines, step);
   playgame(showboard, realboard, height, width, mines, step);
 }
 
