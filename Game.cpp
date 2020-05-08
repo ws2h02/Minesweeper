@@ -450,6 +450,7 @@ int main(){
     cout << "Please take your first step: " << endl << "(X Y): ";
     int firstheight, firstwidth;
     cin >> firstwidth >> firstheight;
+    cout << "Creating minefield..." << endl;
     int tmp_mines = mines;
     while(tmp_mines > 0){
       producemine(height, width, realboard, firstheight, firstwidth);
