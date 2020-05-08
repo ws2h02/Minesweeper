@@ -310,7 +310,7 @@ void scaninput(string player_input,int height, int width, char **showboard, char
   switch(command)
   {
     case 0:
-      save();
+      save(height, width, step, mines, showboard, realboard);
       break;
     case 1://asking are you sure to give it up and start a new game
       break;
