@@ -216,7 +216,7 @@ void flag(char **showboard, int height, int width, int & mines){//what if flag a
   }
   if(showboard[flag_height][flag_width] == 'P'){
     showboard[flag_height][flag_width] = '-';
-    mines += 1
+    mines += 1;
   }
   else if(showboard[flag_height][flag_width] != '-'){
     cout << "That was opened! Please try again." << endl;
