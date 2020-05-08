@@ -168,13 +168,21 @@ void printboard(char **board, int height, int width){
   }
 }
   
-void open(char **showboard, char **realboard, int open_height, int open_width){
+void open(char **showboard, char **realboard, int open_height, int open_width, int height, int width){
     if(realboard[open_height][open_width] == '0'){
       showboard[open_height][open_width] = '0';
-      open(showboard, realboard, open_height+1, open_width);
-      open(showboard, realboard, open_height-1, open_width);
-      open(showboard, realboard, open_height, open_width+1);
-      open(showboard, realboard, open_height, open_width-1);
+      if(open_height+1 < height){
+        open(showboard, realboard, open_height+1, open_width, height, width);
+      }
+      if(open_height-1 >= 0){
+        open(showboard, realboard, open_height-1, open_width, height, width);
+      }
+      if(open_width+1 < width){
+        open(showboard, realboard, open_height, open_width+1, height, width);
+      }
+      if(open_width-1 >= 0){
+        open(showboard, realboard, open_height, open_width-1, height, width);
+      }
     }
     else{
       showboard[open_height][open_width] = realboard[open_height][open_width];
@@ -245,7 +253,7 @@ void scaninput(string player_input,int height, int width, char **showboard, char
           cin >> open_height >> open_width;
         }
       }
-      open(showboard, realboard, open_height, open_width);
+      open(showboard, realboard, open_height, open_width, height, width);
       break;
     case 3:
       flag(showboard, height, width);
@@ -355,7 +363,7 @@ int main(){
       tmp_mines -= 1;
     }
     producerealboard(realboard, height, width);
-    open(showboard, realboard, firstheight, firstwidth);
+    open(showboard, realboard, firstheight, firstwidth, height, width);
     playgame(showboard, realboard, height, width);
   }
   if (game=="L"){
