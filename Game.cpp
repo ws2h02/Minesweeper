@@ -205,7 +205,7 @@ void open(char **showboard, char **realboard, int open_height, int open_width, i
       }
     }
     else{
-      if(realboard[open_height][open_width] != 0){
+      if(realboard[open_height][open_width] != '0'){
         showboard[open_height][open_width] = realboard[open_height][open_width];
       }
     }
@@ -262,6 +262,7 @@ void scaninput(string player_input,int height, int width, char **showboard, char
       break;
     case 2:
       int open_height, open_width;
+      cout << "Please input your next move:" << endl << "(Height, Width): ";
       cin >> open_height >> open_width;
       while(open_height >= height || open_width >= width || showboard[open_height][open_width] != '-'){
         if(open_height >= height || open_width >= width){
@@ -280,6 +281,7 @@ void scaninput(string player_input,int height, int width, char **showboard, char
       open(showboard, realboard, open_height, open_width, height, width);
       break;
     case 3:
+      cout << "Please input the position:" << endl << "(Height, Width): ";
       flag(showboard, height, width);
       break;
     case 4:
@@ -382,7 +384,7 @@ int main(){
     }
     step = 0;
     printboard(showboard, height, width, mines, step);
-    cout << "Please take your first step: " << endl << "First Step (Height, Width): ";
+    cout << "Please take your first step: " << endl << "(Height, Width): ";
     int firstheight, firstwidth;
     cin >> firstheight >> firstwidth;
     int tmp_mines = mines;
