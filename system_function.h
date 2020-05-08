@@ -132,29 +132,6 @@ void gamesetting(string diff, int & height, int & width, int & mines){
   }
 }
 
-void save(int height, int width, int step, int mines, char **showboard, char **realboard){
-    ofstream fout;
-    string filename;
-    cout << "Please set the name for this savefile: ";
-    cin >> filename;
-    filename.append(".txt");
-    fout.open(filename);
-    fout << height << " " << width << " " << step << " " << mines << endl;
-    for (int i=0;i<height;i++){
-        for (int j=0;j<width;j++){
-            if (showboard[i][j]==' ') fout << "0 ";
-            else fout << showboard[i][j] << " ";
-        }
-    }
-    fout << endl;
-    for (int i=0;i<height;i++){
-        for (int j=0;j<width;j++){
-            fout << realboard[i][j] << " ";
-        }
-    }
-    fout.close();
-}
-
 void printboard(char **board, int height, int width, int mines, int step){
   cout << "Mines Remained: " << mines << "   " << "Step Counter: " << step;
   cout << endl;
@@ -172,11 +149,6 @@ void printboard(char **board, int height, int width, int mines, int step){
     cout << endl;
   }
 }
-  
-
-
-
-
 
 
 bool keepon(char **showboard, int height, int width, bool & win, int mines){//checking showboard have '*' or not
