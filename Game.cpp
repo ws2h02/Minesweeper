@@ -13,9 +13,25 @@ void producemine(int height,int width, char **board, int firstheight, int firstw
     int x = rand() % height;
     int y = rand() % width;
     if(x != firstheight && y != firstwidth){
-      if(board[x][y] != '*'){
-        board[x][y] = '*';
-        bury = false;
+      if(x != firstheight-1 && y != firstwidth){
+        if(x != firstheight+1 && y != firstwidth){
+          if(x != firstheight && y != firstwidth-1){
+            if(x != firstheight && y != firstwidth+1){
+              if(x != firstheight-1 && y != firstwidth-1){
+                if(x != firstheight-1 && y != firstwidth+1){
+                  if(x != firstheight+1 && y != firstwidth-1){
+                    if(x != firstheight+1 && y != firstwidth+1){
+                      if(board[x][y] != '*'){
+                        board[x][y] = '*';
+                        bury = false;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
