@@ -152,25 +152,64 @@ void showtime(){
 void quit(){
 }
 
-void save(){
+void save(int height, int width, int step, int mines, char **showboard, char **realboard){
+    ofstream fout;
+    string filename;
+    cout << "Please set the name for this savefile: ";
+    cin >> filename;
+    filename.append(".txt");
+    fout.open(filename);
+    fout << height << " " << width << " " << step << " " << mines << endl;
+    for (int i=0;i<height;i++){
+        for (int j=0;j<width;j++){
+            fout << showboard[i][j] << " ";
+        }
+    }
+    fout << endl;
+    for (int i=0;i<height;i++){
+        for (int j=0;j<width;j++){
+            fout << realboard[i][j] << " ";
+        }
+    }
+    fout.close();
 }
 
 void load(){
-  ofstream fout;
+  ifstream fin;
   string savefile;
   cout << "Loading file name: ";
   cin >> savefile;
-  fout.open(savefile);
-  while ( fout.fail() ) {
+  savefile.append(".txt");
+  fin.open(savefile);
+  while ( fin.fail() ) {
     cout << "Error in file opening!" << endl;
     exit(1);
     cout << "Loading file name: ";
     cin >> savefile;
-    fout.open(savefile);
+    savefile += ".txt";
+    fin.open(savefile);
   }
   //how to load the board
-  
-  fout.close();
+  int height, width, step, mines;
+  fin >> height >> width >> step >> mines;
+  char** showboard = new char*[height];
+  for(int i = 0; i < height; ++i){
+    showboard[i] = new char[width];
+    for(int j = 0; j < width; ++j){
+      fin >> showboard[i][j];
+    }
+  }
+    
+  char** realboard = new char*[height];
+  for(int i = 0; i < height; ++i){
+    realboard[i] = new char[width];
+    for(int j = 0;j < width; ++j){
+      fin >> realboard[i][j];
+    }
+  }
+  fin.close();
+  printboard(showboard, height, width, mines, step);
+  playgame(showboard, realboard, height, width, mines, step);
 }
 
 void printboard(char **board, int height, int width, int mines, int step){
