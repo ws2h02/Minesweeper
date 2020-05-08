@@ -266,9 +266,6 @@ void scaninput(string player_input,int height, int width, char **showboard, char
   else if(player_input == "Time"){
     command = 4;
   }
-  else if(player_input == "Quit"){
-    command = 5;
-  }
   
   switch(command)
   {
@@ -303,9 +300,6 @@ void scaninput(string player_input,int height, int width, char **showboard, char
       break;
     case 4:
       showtime();
-      break;
-    case 5:
-      quit();
       break;
   }
 }
@@ -348,13 +342,25 @@ void playgame(char **showboard, char **realboard, int height, int width, int min
       cout << "Invalid input! Please try again." << endl;
       cin >> player_input;
     }
+    if (player_input=="Quit"){
+        cout << "Are you sure?" << endl << "(Y/N): ";
+        string confirm;
+        cin >> confirm;
+        while (confirm!="Y" && confirm!="N"){
+            cout << "Invalid input! Please try again." << endl;
+            cin >> confirm;
+        }
+        if (confirm=="Y") break;
+        else continue;
+    }
     scaninput(player_input, height, width, showboard, realboard , mines, step);
     goingon = keepon(showboard, height, width, win);
     if(goingon){
       printboard(showboard, height, width, mines, step);
     }
   }
-  if(win){
+  if (player_input=="Quit") cout << "You quit successfully. See you next time!";
+  else if(win){
     printboard(showboard, height, width, mines, step);
     cout << "You win!";
   }
