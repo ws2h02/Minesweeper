@@ -171,7 +171,7 @@ void load(){
 }
 
 void printboard(char **board, int height, int width){
-  cout << "   ";
+  cout << "    ";
   for(int a = 0; a < width; ++a){
     cout << setw(3) << a << " ";
   }
