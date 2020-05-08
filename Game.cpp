@@ -171,15 +171,16 @@ void load(){
 }
 
 void printboard(char **board, int height, int width){
-  cout << "    ";
+  cout << left;
+  cout << "   ";
   for(int a = 0; a < width; ++a){
-    cout << setw(3) << a << " ";
+    cout << setw(3) << a;
   }
   cout << endl;
   for(int i = 0; i < height; ++i){
-    cout << setw(3) << i << " ";
+    cout << setw(3) << i;
     for(int j = 0; j < width; ++j){
-      cout << setw(3) << board[i][j] << " ";  
+      cout << setw(3) << board[i][j];  
     }
     cout << endl;
   }
@@ -187,7 +188,7 @@ void printboard(char **board, int height, int width){
   
 void open(char **showboard, char **realboard, int open_height, int open_width, int height, int width){
     if(realboard[open_height][open_width] == '0' && showboard[open_height][open_width] == '-'){
-      showboard[open_height][open_width] = '0';
+      showboard[open_height][open_width] = ' ';
       if(open_height+1 < height){
         open(showboard, realboard, open_height+1, open_width, height, width);
       }
