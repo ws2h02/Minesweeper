@@ -269,7 +269,7 @@ void scaninput(string player_input,int height, int width, char **showboard, char
 
 bool keepon(char **showboard, int height, int width, bool & win){//checking showboard have '*' or not
   int notopen = 0;
-  int boom = 0
+  int boom = 0;
   for(int i = 0; i < height; ++i){
     for(int j = 0; j < width; ++j){
       if(showboard[i][j] == '*'){
