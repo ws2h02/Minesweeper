@@ -207,7 +207,7 @@ void open(char **showboard, char **realboard, int open_height, int open_width, i
     }
 }
 
-void flag(char **showboard, int height, int width){//what if flag a flaged block - unflagged or send error
+void flag(char **showboard, int height, int width, int & mines){//what if flag a flaged block - unflagged or send error
   int flag_height, flag_width;
   cin >> flag_width >> flag_height;
   while(flag_height >= height || flag_width >= width){
@@ -216,6 +216,7 @@ void flag(char **showboard, int height, int width){//what if flag a flaged block
   }
   if(showboard[flag_height][flag_width] == 'P'){
     showboard[flag_height][flag_width] = '-';
+    mines += 1
   }
   else if(showboard[flag_height][flag_width] != '-'){
     cout << "That was opened! Please try again." << endl;
@@ -267,7 +268,7 @@ void scaninput(string player_input,int height, int width, char **showboard, char
       break;
     case 2:
       cout << "Please input the position:" << endl << "(X, Y): ";
-      flag(showboard, height, width);
+      flag(showboard, height, width, mines);
       break;
   }
 }
