@@ -162,7 +162,8 @@ void save(int height, int width, int step, int mines, char **showboard, char **r
     fout << height << " " << width << " " << step << " " << mines << endl;
     for (int i=0;i<height;i++){
         for (int j=0;j<width;j++){
-            fout << showboard[i][j] << " ";
+            if (showboard[i][j]==' ') fout << "0 ";
+            else fout << showboard[i][j] << " ";
         }
     }
     fout << endl;
@@ -194,7 +195,7 @@ void printboard(char **board, int height, int width, int mines, int step){
   
 void open(char **showboard, char **realboard, int open_height, int open_width, int height, int width){
     if(realboard[open_height][open_width] == '0' && showboard[open_height][open_width] == '-'){
-      showboard[open_height][open_width] = '0';
+      showboard[open_height][open_width] = ' ';
       if(open_height+1 < height){
         open(showboard, realboard, open_height+1, open_width, height, width);
       }
@@ -385,7 +386,10 @@ void load(){
   for(int i = 0; i < height; ++i){
     showboard[i] = new char[width];
     for(int j = 0; j < width; ++j){
-      fin >> showboard[i][j];
+      char slot;
+      fin >> slot;
+      if (slot=='0') showboard[i][j]=' ';
+      else showboard[i][j]=slot;
     }
   }
     
