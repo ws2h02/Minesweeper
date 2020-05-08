@@ -203,6 +203,18 @@ void open(char **showboard, char **realboard, int open_height, int open_width, i
       if(open_width-1 >= 0){
         open(showboard, realboard, open_height, open_width-1, height, width);
       }
+      if(open_height+1 < height && open_width+1 < width){
+        open(showboard, realboard, open_height+1, open_width+1, height, width);
+      }
+      if(open_height+1 < height && open_width-1 >= 0){
+        open(showboard, realboard, open_height+1, open_width-1, height, width);
+      }
+      if(open_height-1 >= 0 && open_width+1 < width){
+        open(showboard, realboard, open_height-1, open_width+1, height, width);
+      }
+      if(open_height-1 >= 0 && open_width-1 >= 0){
+        open(showboard, realboard, open_height-1, open_width-1, height, width);
+      }
     }
     else{
       if(realboard[open_height][open_width] != '0'){
