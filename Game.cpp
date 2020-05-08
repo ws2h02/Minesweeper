@@ -3,6 +3,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
+#include <iomanip>
 using namespace std;
 
 void producemine(int height,int width, char **board, int firstheight, int firstwidth){
@@ -170,15 +171,15 @@ void load(){
 }
 
 void printboard(char **board, int height, int width){
-  cout << "  ";
+  cout << "   ";
   for(int a = 0; a < width; ++a){
-    cout << a << " ";
+    cout << setw(3) << a << " ";
   }
   cout << endl;
   for(int i = 0; i < height; ++i){
-    cout << i << " ";
+    cout << setw(3) << i << " ";
     for(int j = 0; j < width; ++j){
-      cout << board[i][j] << " ";  
+      cout << setw(3) << board[i][j] << " ";  
     }
     cout << endl;
   }
