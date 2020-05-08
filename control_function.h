@@ -2,6 +2,7 @@
 #define Control
 #include <iostream>
 #include <string>
+using namespace std;
 
 void open(char **showboard, char **realboard, int open_height, int open_width, int height, int width){
     if(realboard[open_height][open_width] == '0' && showboard[open_height][open_width] == '-'){
