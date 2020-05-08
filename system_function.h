@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iomanip>
+using namespace std;
 
 void producemine(int height,int width, char **board, int firstheight, int firstwidth){
   //first step must not lose, if player choose a bomb in his first step, replace it to other block.
