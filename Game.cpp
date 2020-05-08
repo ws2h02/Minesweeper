@@ -173,62 +173,6 @@ void save(int height, int width, int step, int mines, char **showboard, char **r
     }
     fout.close();
 }
-
-void load(){
-  ifstream fin;
-  string savefile;
-  cout << "Loading file name: ";
-  cin >> savefile;
-  savefile.append(".txt");
-  fin.open(savefile);
-  while ( fin.fail() ) {
-    cout << "Error in file opening!" << endl;
-    exit(1);
-    cout << "Loading file name: ";
-    cin >> savefile;
-    savefile += ".txt";
-    fin.open(savefile);
-  }
-  //how to load the board
-  int height, width, step, mines;
-  fin >> height >> width >> step >> mines;
-  char** showboard = new char*[height];
-  for(int i = 0; i < height; ++i){
-    showboard[i] = new char[width];
-    for(int j = 0; j < width; ++j){
-      fin >> showboard[i][j];
-    }
-  }
-    
-  char** realboard = new char*[height];
-  for(int i = 0; i < height; ++i){
-    realboard[i] = new char[width];
-    for(int j = 0;j < width; ++j){
-      fin >> realboard[i][j];
-    }
-  }
-  fin.close();
-  printboard(showboard, height, width, mines, step);
-  playgame(showboard, realboard, height, width, mines, step);
-}
-
-void printboard(char **board, int height, int width, int mines, int step){
-  cout << "Mines Remained: " << mines << "   " << "Step Counter: " << step;
-  cout << endl;
-  cout << left;
-  cout << "   ";
-  for(int a = 0; a < width; ++a){
-    cout << setw(3) << a;
-  }
-  cout << endl;
-  for(int i = 0; i < height; ++i){
-    cout << setw(3) << i;
-    for(int j = 0; j < width; ++j){
-      cout << setw(3) << board[i][j];  
-    }
-    cout << endl;
-  }
-}
   
 void open(char **showboard, char **realboard, int open_height, int open_width, int height, int width){
     if(realboard[open_height][open_width] == '0' && showboard[open_height][open_width] == '-'){
@@ -398,6 +342,62 @@ void playgame(char **showboard, char **realboard, int height, int width, int min
   else{
     printboard(showboard, height, width, mines, step);
     cout << "You lose!";
+  }
+}
+
+void load(){
+  ifstream fin;
+  string savefile;
+  cout << "Loading file name: ";
+  cin >> savefile;
+  savefile.append(".txt");
+  fin.open(savefile);
+  while ( fin.fail() ) {
+    cout << "Error in file opening!" << endl;
+    exit(1);
+    cout << "Loading file name: ";
+    cin >> savefile;
+    savefile += ".txt";
+    fin.open(savefile);
+  }
+  //how to load the board
+  int height, width, step, mines;
+  fin >> height >> width >> step >> mines;
+  char** showboard = new char*[height];
+  for(int i = 0; i < height; ++i){
+    showboard[i] = new char[width];
+    for(int j = 0; j < width; ++j){
+      fin >> showboard[i][j];
+    }
+  }
+    
+  char** realboard = new char*[height];
+  for(int i = 0; i < height; ++i){
+    realboard[i] = new char[width];
+    for(int j = 0;j < width; ++j){
+      fin >> realboard[i][j];
+    }
+  }
+  fin.close();
+  printboard(showboard, height, width, mines, step);
+  playgame(showboard, realboard, height, width, mines, step);
+}
+
+void printboard(char **board, int height, int width, int mines, int step){
+  cout << "Mines Remained: " << mines << "   " << "Step Counter: " << step;
+  cout << endl;
+  cout << left;
+  cout << "   ";
+  for(int a = 0; a < width; ++a){
+    cout << setw(3) << a;
+  }
+  cout << endl;
+  for(int i = 0; i < height; ++i){
+    cout << setw(3) << i;
+    for(int j = 0; j < width; ++j){
+      cout << setw(3) << board[i][j];  
+    }
+    cout << endl;
   }
 }
   
