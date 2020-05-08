@@ -406,7 +406,7 @@ void playgame(char **showboard, char **realboard, int height, int width, int min
       printboard(showboard, height, width, mines, step);
     }
   }
-  if (player_input=="Quit") cout << "You quit successfully. See you next time!";
+  if (player_input=="Quit") cout << "You quit successfully. See you next time!" << endl;
   else if(win){
     printboard(showboard, height, width, mines, step);
     cout << "You win!";
