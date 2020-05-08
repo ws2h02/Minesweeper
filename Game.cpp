@@ -12,11 +12,11 @@ struct Settingset{
   int width;
   int mines;
   int step;
-}
+};
 
 int main(){
   // player input: difficulty(number? or string?[simple/normal/hard/customized]), size(one number?[square], two number[rectangle]), number of mines[if player choose customized]
-  Settingset setting
+  Settingset setting;
   cout << "Welcome to Minesweeper: Word Edition!!";
   cout << "New Game or Load Game?" << endl << "(N / L): ";
   cin >> setting.game;
@@ -68,7 +68,7 @@ int main(){
     setting.step += 1;
     playgame(showboard, realboard, setting.height, setting.width, setting.mines, setting.step);
   }
-  if (game=="L"){
+  if (setting.game=="L"){
     load();
   }
 }
