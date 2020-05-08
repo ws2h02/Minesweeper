@@ -326,9 +326,9 @@ void playgame(char **showboard, char **realboard, int height, int width, int min
   while( goingon ){
     // system output: gameboard
     // player input: command (game control, save and load)
-    cout << "Please input a command." << endl << "(Open / Flag / Save / Restart / Quit): ";//ALL command
+    cout << "Please input a command." << endl << "(Open / Flag / Time / Save / Restart / Quit): ";//ALL command
     cin >> player_input;
-    while (player_input != "Open" && player_input != "Flag" && player_input != "Save" && player_input != "Restart" && player_input != "Quit"){
+    while (player_input != "Open" && player_input != "Flag" && player_input != "Time" && player_input != "Save" && player_input != "Restart" && player_input != "Quit"){
       cout << "Invalid input! Please try again." << endl;
       cin >> player_input;
     }
