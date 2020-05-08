@@ -220,7 +220,7 @@ void flag(char **showboard, int height, int width, int & mines){//what if flag a
   }
   else if(showboard[flag_height][flag_width] != '-'){
     cout << "That was opened! Please try again." << endl;
-    flag(showboard, height, width);
+    flag(showboard, height, width, mines);
   }
   else{
     showboard[flag_height][flag_width] = 'P';
