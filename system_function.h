@@ -271,11 +271,11 @@ void playgame(char **showboard, char **realboard, int height, int width, int min
   if (player_input=="Quit") cout << "You quit successfully. See you next time!" << endl;
   else if(win){
     printboard(showboard, height, width, mines, step);
-    cout << "You win!";
+    cout << "You win!" << endl;
   }
   else{
     printboard(showboard, height, width, mines, step);
-    cout << "You lose!";
+    cout << "You lose!" << endl;
   }
   delete [] showboard;
   delete [] realboard;
