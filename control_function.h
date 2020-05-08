@@ -2,6 +2,7 @@
 #define Control
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 void open(char **showboard, char **realboard, int open_height, int open_width, int height, int width){
@@ -104,6 +105,29 @@ void scaninput(string player_input,int height, int width, char **showboard, char
       flag(showboard, height, width, mines);
       break;
   }
+}
+
+void save(int height, int width, int step, int mines, char **showboard, char **realboard){
+    ofstream fout;
+    string filename;
+    cout << "Please set the name for this savefile: ";
+    cin >> filename;
+    filename.append(".txt");
+    fout.open(filename);
+    fout << height << " " << width << " " << step << " " << mines << endl;
+    for (int i=0;i<height;i++){
+        for (int j=0;j<width;j++){
+            if (showboard[i][j]==' ') fout << "0 ";
+            else fout << showboard[i][j] << " ";
+        }
+    }
+    fout << endl;
+    for (int i=0;i<height;i++){
+        for (int j=0;j<width;j++){
+            fout << realboard[i][j] << " ";
+        }
+    }
+    fout.close();
 }
 
 #endif
