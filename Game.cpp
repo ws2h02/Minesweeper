@@ -247,15 +247,12 @@ void scaninput(string player_input,int height, int width, char **showboard, char
   if(player_input == "Save"){
     command = 0;
   }
-  else if(player_input == "Restart"){
-    command = 1;
-  }
   else if(player_input == "Open"){
-    command = 2;
+    command = 1;
     step += 1;
   }
   else if(player_input == "Flag"){
-    command = 3;
+    command = 2;
     mines -= 1;
   }
   
@@ -264,9 +261,7 @@ void scaninput(string player_input,int height, int width, char **showboard, char
     case 0:
       save(height, width, step, mines, showboard, realboard);
       break;
-    case 1://asking are you sure to give it up and start a new game
-      break;
-    case 2:
+    case 1:
       int open_height, open_width;
       cout << "Please input your next move:" << endl << "(X Y): ";
       cin >> open_width >> open_height;
@@ -286,7 +281,7 @@ void scaninput(string player_input,int height, int width, char **showboard, char
       }
       open(showboard, realboard, open_height, open_width, height, width);
       break;
-    case 3:
+    case 2:
       cout << "Please input the position:" << endl << "(Height, Width): ";
       flag(showboard, height, width);
       break;
@@ -341,6 +336,58 @@ void playgame(char **showboard, char **realboard, int height, int width, int min
         int s = t%60;
         cout << m << " minutes " << s << " seconds." << endl;
         continue;
+    }
+    if (player_input=="Restart"){
+        cout << "Are you sure you want to restart?" << endl << "(Y/N): ";
+        string confirm;
+        cin >> confirm;
+        while (confirm!="Y" && confirm!="N"){
+            cout << "Invalid input! Please try again." << endl;
+            cin >> confirm;
+        }
+        if (confirm=="N") continue;
+        else {
+            string diff;
+            cout << "Difficulty?" << endl << "(Simple / Normal / Hard / Customized): ";
+            cin >> diff;
+            while (diff != "Simple" && diff != "Normal" && diff != "Hard" && diff != "Customized"){
+              cout << "Invalid input! Please try again." << endl;
+              cin >> diff;
+            }
+            gamesetting(diff, height, width, mines);
+            
+            char** showboard = new char*[height];
+            for(int i = 0; i < height; ++i){
+              showboard[i] = new char[width];
+              for(int j = 0; j < width; ++j){
+                showboard[i][j] = '-';
+              }
+            }
+            
+            char** realboard = new char*[height];
+            for(int i = 0; i < height; ++i){
+              realboard[i] = new char[width];
+              for(int j = 0;j < width; ++j){
+                realboard[i][j] = '-';
+              }
+            }
+            step = 0;
+            printboard(showboard, height, width, mines, step);
+            cout << "Please take your first step: " << endl << "(Y X): ";
+            int firstheight, firstwidth;
+            cin >> firstheight >> firstwidth;
+            cout << "Creating minefield..." << endl;
+            int tmp_mines = mines;
+            while(tmp_mines > 0){
+              producemine(height, width, realboard, firstheight, firstwidth);
+              tmp_mines -= 1;
+            }
+            producerealboard(realboard, height, width);
+            open(showboard, realboard, firstheight, firstwidth, height, width);
+            step += 1;
+            playgame(showboard, realboard, height, width, mines, step);
+            return;
+        }
     }
     if (player_input=="Quit"){
         cout << "Are you sure?" << endl << "(Y/N): ";
