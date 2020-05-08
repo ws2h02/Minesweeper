@@ -22,15 +22,12 @@ Code Requirement:
 Features (vis-a-vis each of the items 1 to 5 listed under coding requirements above):         
 1. Generate random game sets everytime 
 (using ctime, cstdlib, iomanip, string)
-2. Using struct to save game setting data
-
+2. Using struct to save game setting data         
 3-1. Include 4 difficulty settings using dynamic 2-D arrays           
-3-2. Customize minefield size and number of mines using dynamic 2-D arrays       
+3-2. Customize minefield size and number of mines using dynamic 2-D arrays         
 4. Save and load function using file input/output         
 (using fstream)
-
 5. Separating function by player command and system control
-
 6. Show the amount of time spent when called
 (using chrono, ctime)              
 7. Include step counter on screen            
