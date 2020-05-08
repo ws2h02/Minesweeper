@@ -216,7 +216,7 @@ void flag(char **showboard, int height, int width, int & mines){//what if flag a
   }
   if(showboard[flag_height][flag_width] == 'P'){
     showboard[flag_height][flag_width] = '-';
-    mines += 1;
+    mines += 2;
   }
   else if(showboard[flag_height][flag_width] != '-'){
     cout << "That was opened! Please try again." << endl;
@@ -400,6 +400,8 @@ void playgame(char **showboard, char **realboard, int height, int width, int min
     printboard(showboard, height, width, mines, step);
     cout << "You lose!";
   }
+  delete [] showboard;
+  delete [] realboard;
 }
 
 void load(){
