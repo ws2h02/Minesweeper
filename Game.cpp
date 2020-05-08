@@ -288,7 +288,7 @@ void scaninput(string player_input,int height, int width, char **showboard, char
   }
 }
 
-bool keepon(char **showboard, int height, int width, bool & win){//checking showboard have '*' or not
+bool keepon(char **showboard, int height, int width, bool & win, int mines){//checking showboard have '*' or not
   int notopen = 0;
   for(int i = 0; i < height; ++i){
     for(int j = 0; j < width; ++j){
@@ -301,7 +301,7 @@ bool keepon(char **showboard, int height, int width, bool & win){//checking show
       }
     }
   }
-if(notopen == 0){
+if(notopen == mines){
     win = true;
     return false;
   }
@@ -401,7 +401,7 @@ void playgame(char **showboard, char **realboard, int height, int width, int min
         else continue;
     }
     scaninput(player_input, height, width, showboard, realboard , mines, step);
-    goingon = keepon(showboard, height, width, win);
+    goingon = keepon(showboard, height, width, win, mines);
     if(goingon){
       printboard(showboard, height, width, mines, step);
     }
