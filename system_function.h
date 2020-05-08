@@ -147,6 +147,9 @@ void printboard(char **board, int height, int width, int mines, int step){
     }
     cout << endl;
   }
+  if(mines < 0){
+    cout << "You flag too many mines!" << endl;
+  }
 }
 
 
