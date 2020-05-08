@@ -1,7 +1,6 @@
 #ifndef System
 #define System
 #include <iostream>
-#include <chrono>
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
