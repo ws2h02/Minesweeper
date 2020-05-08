@@ -482,7 +482,7 @@ int main(){
     cout << "Please take your first step: " << endl << "(X Y): ";
     int firstheight, firstwidth;
     cin >> firstwidth >> firstheight;
-    while(firstwidth >= width || firstheight >= height){
+    while(firstwidth >= width || firstheight >= height || firstwidth < 0 || firstheight < 0){
           cout << "Out of range! Please try again." << endl;
           cin >> firstwidth >> firstheight;
         }
