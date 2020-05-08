@@ -124,19 +124,21 @@ void gamesetting(string diff, int & height, int & width, int & mines){
       cout << "Height: ";
       cin >> height;
       while(height <= 0 || height > 100){
-        cout << "Invaild input! Please try again.";
+        cout << "Invaild input! Please try again." << endl;
         cin >> height;
       }
       cout << "Width: ";
       cin >> width;
       while(width <= 0 || height > 100){
-        cout << "Invaild input! Please try again.";
+        cout << "Invaild input! Please try again." << endl;
         cin >> width;
       }
       cout << "Mines: ";
       cin >> mines;
       while(mines <= 0 || mines > height*width-9){
-        cout << "Invaild input! Please try again.";
+        cout << "Invaild input! Please try again."; << endl;
+        if(mines > height*width-9){
+          cout << "Too many mines!";
         cin >> mines;
       }
       break;
