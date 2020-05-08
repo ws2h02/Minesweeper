@@ -170,7 +170,9 @@ void load(){
   fout.close();
 }
 
-void printboard(char **board, int height, int width){
+void printboard(char **board, int height, int width, int mines, int step){
+  cout << "Mines Remained: " << mines << "   " << "Step Counter: " << step;
+  cout << endl;
   cout << left;
   cout << "   ";
   for(int a = 0; a < width; ++a){
@@ -238,7 +240,7 @@ void flag(char **showboard, int height, int width){//what if flag a flaged block
   }
 }
 
-void scaninput(string player_input,int height, int width, char **showboard, char **realboard){
+void scaninput(string player_input,int height, int width, char **showboard, char **realboard, int & mines, int & step){
   int command;
   if(player_input == "Save"){
     command = 0;
@@ -248,9 +250,11 @@ void scaninput(string player_input,int height, int width, char **showboard, char
   }
   else if(player_input == "Open"){
     command = 2;
+    step += 1;
   }
   else if(player_input == "Flag"){
     command = 3;
+    mines -= 1;
   }
   else if(player_input == "Time"){
     command = 4;
@@ -320,12 +324,12 @@ if(notopen == 0){
   }
 }
 
-void playgame(char **showboard, char **realboard, int height, int width){
+void playgame(char **showboard, char **realboard, int height, int width, int mines, int step){
   // repeat step 2 and 3 until player win
   bool goingon = true;
   bool win;
   string player_input;
-  printboard(showboard, height, width);
+  printboard(showboard, height, width, mines, step);
   while( goingon ){
     // system output: gameboard
     // player input: command (game control, save and load)
@@ -335,18 +339,18 @@ void playgame(char **showboard, char **realboard, int height, int width){
       cout << "Invalid input! Please try again." << endl;
       cin >> player_input;
     }
-    scaninput(player_input, height, width, showboard, realboard);
+    scaninput(player_input, height, width, showboard, realboard , mines, step);
     goingon = keepon(showboard, height, width, win);
     if(goingon){
-      printboard(showboard, height, width);
+      printboard(showboard, height, width, mines, step);
     }
   }
   if(win){
-    printboard(showboard, height, width);
+    printboard(showboard, height, width, mines, step);
     cout << "You win!";
   }
   else{
-    printboard(showboard, height, width);
+    printboard(showboard, height, width, mines, step);
     cout << "You lose!";
   }
 }
@@ -354,7 +358,7 @@ void playgame(char **showboard, char **realboard, int height, int width){
 int main(){
   // player input: difficulty(number? or string?[simple/normal/hard/customized]), size(one number?[square], two number[rectangle]), number of mines[if player choose customized]
   string diff,game;
-  int height, width, mines;
+  int height, width, mines, step;
   cout << "Welcome to Minesweeper: Word Edition!!";
   cout << "New Game or Load Game?" << endl << "(N / L): ";
   cin >> game;
@@ -386,7 +390,8 @@ int main(){
         realboard[i][j] = '-';
       }
     }
-    printboard(showboard, height, width);
+    step = 0;
+    printboard(showboard, height, width, mines, step);
     cout << "Please take your first step: " << endl << "First Step (Height, Width): ";
     int firstheight, firstwidth;
     cin >> firstheight >> firstwidth;
@@ -397,7 +402,8 @@ int main(){
     }
     producerealboard(realboard, height, width);
     open(showboard, realboard, firstheight, firstwidth, height, width);
-    playgame(showboard, realboard, height, width);
+    step += 1;
+    playgame(showboard, realboard, height, width, mines, step);
   }
   if (game=="L"){
     load();
