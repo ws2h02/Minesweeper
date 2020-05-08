@@ -14,24 +14,24 @@ Whenever you opened a safe slot, it will show the number of mines next to it in 
 
 Features:         
 1. Generate random game sets everytime 
-(using <ctime> <cstdlib> <iomanip> <string>)   
+(using ctime, cstdlib, iomanip, string)   
 2. Include 3 difficulty settings using dynamic 2-D arrays        
 3. Customize minefield size and number of mines using dynamic 2-D arrays
 4. Save and load function using file input/output
-(using <fstream>)             
+(using fstream)             
 5. Show the amount of time spent when called
-(using <chrono> <ctime>)              
+(using chrono, ctime)              
 6. Include step counter on screen            
 7. Include restart function                     
 8. Include flag system (Flag the mine) 
 (Flag again will remove the flag instead)
   
 Additionay libraries:
-#include <string>
-#include <fstream>
-#include <cstdlib>
-#include <ctime>
-#include <iomanip>
-#include <chrono>
+1. string
+2. fstream
+3. cstdlib
+4. ctime
+5. iomanip
+6. chrono
 
 Compilation and execution instructions: 
