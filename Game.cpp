@@ -129,7 +129,7 @@ void gamesetting(string diff, int & height, int & width, int & mines){
       }
       cout << "Width: ";
       cin >> width;
-      while(width <= 0 || height > 100){
+      while(width <= 0 || width > 100){
         cout << "Invaild input! Please try again." << endl;
         cin >> width;
       }
