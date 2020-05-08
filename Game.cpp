@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iomanip>
+#include <chrono>
 using namespace std;
 
 void producemine(int height,int width, char **board, int firstheight, int firstwidth){
@@ -146,9 +147,6 @@ void gamesetting(string diff, int & height, int & width, int & mines){
   }
 }
 
-void showtime(){
-}
-
 void save(int height, int width, int step, int mines, char **showboard, char **realboard){
     ofstream fout;
     string filename;
@@ -260,9 +258,6 @@ void scaninput(string player_input,int height, int width, char **showboard, char
     command = 3;
     mines -= 1;
   }
-  else if(player_input == "Time"){
-    command = 4;
-  }
   
   switch(command)
   {
@@ -294,9 +289,6 @@ void scaninput(string player_input,int height, int width, char **showboard, char
     case 3:
       cout << "Please input the position:" << endl << "(Height, Width): ";
       flag(showboard, height, width);
-      break;
-    case 4:
-      showtime();
       break;
   }
 }
@@ -330,6 +322,7 @@ void playgame(char **showboard, char **realboard, int height, int width, int min
   bool win;
   string player_input;
   printboard(showboard, height, width, mines, step);
+  auto start = chrono::system_clock::now();
   while( goingon ){
     // system output: gameboard
     // player input: command (game control, save and load)
@@ -338,6 +331,16 @@ void playgame(char **showboard, char **realboard, int height, int width, int min
     while (player_input != "Open" && player_input != "Flag" && player_input != "Save" && player_input != "Restart" && player_input != "Quit"){
       cout << "Invalid input! Please try again." << endl;
       cin >> player_input;
+    }
+    if (player_input=="Time"){
+        auto current = chrono::system_clock::now();
+        chrono::duration<double> elapsed_seconds = current-start;
+        cout << "Time spent: ";
+        int t = elapsed_seconds.count();
+        int m = t/60;
+        int s = t%60;
+        cout << m << " minutes " << s << " seconds." << endl;
+        continue;
     }
     if (player_input=="Quit"){
         cout << "Are you sure?" << endl << "(Y/N): ";
