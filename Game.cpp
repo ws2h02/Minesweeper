@@ -371,7 +371,7 @@ int main(){
     cin >> game;
   }
   if (game=="N"){
-    cout << "Difficulty?" << endl << "(Simple / Normal / Hard / Custom): ";
+    cout << "Difficulty?" << endl << "(Simple / Normal / Hard / Customized): ";
     cin >> diff;
     while (diff != "Simple" && diff != "Normal" && diff != "Hard" && diff != "Custom"){
       cout << "Invalid input! Please try again." << endl;
