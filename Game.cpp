@@ -61,6 +61,13 @@ int main(){
     producerealboard(realboard, setting.height, setting.width);
     open(showboard, realboard, firstheight, firstwidth, setting.height, setting.width);
     setting.step += 1;
+    bool win=false;
+    bool firststepwin = keepon(showboard, setting.height, setting.width, win, setting.mines);
+    if (firststepwin==false){
+      printboard(showboard, setting.height, setting.width, setting.mines, setting.step);
+      cout << "You win!" << endl;
+      return 0;
+    }
     playgame(showboard, realboard, setting.height, setting.width, setting.mines, setting.step);
   }
   if (setting.game=="L"){
