@@ -38,7 +38,7 @@ int main(){
       for(int j = 0; j < setting.width; ++j){
         showboard[i][j] = '-';
       }
-    }
+    }//we show this board to player.
     
     char** realboard = new char*[setting.height];
     for(int i = 0; i < setting.height; ++i){
@@ -46,7 +46,7 @@ int main(){
       for(int j = 0;j < setting.width; ++j){
         realboard[i][j] = '-';
       }
-    }
+    }//this board is for the program.
     setting.step = 0;
     printboard(showboard, setting.height, setting.width, setting.mines, setting.step);
     cout << "Please take your first step: " << endl << "(X Y): ";
