@@ -32,7 +32,7 @@ void producemine(int height,int width, char **board, int firstheight, int firstw
       }//creating a array withour starting slot and its neighbour.
   }
   srand((int)time(NULL));
-  for (int i;i<height*width*15;i++){
+  for (int i=0;i<height*width*15;i++){
       //shuffle the values many times inside the slot array.
       int random1=(rand() % (width*height-startslot));
       int random2=(rand() % (width*height-startslot));
