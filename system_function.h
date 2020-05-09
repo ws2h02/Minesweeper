@@ -32,7 +32,7 @@ void producemine(int height,int width, char **board, int firstheight, int firstw
   }
   srand((int)time(NULL));
   for (int i;i<height*width*15;i++){
-      //suffle the values many times inside the slot array.
+      //shuffle the values many times inside the slot array.
       int random1=(rand() % (width*height-startslot));
       int random2=(rand() % (width*height-startslot));
       
@@ -50,6 +50,7 @@ void producemine(int height,int width, char **board, int firstheight, int firstw
 }
   
 void producerealboard(char **realboard, int height, int width){
+  //make the board with every slots labled with numbers.
   for(int i = 0; i < height; ++i){
     for(int j = 0; j < width; ++j){
       if(realboard[i][j] == '-'){
@@ -193,6 +194,7 @@ bool keepon(char **showboard, int height, int width, bool & win, int mines){//ch
     }
   }
   if(notopen == mines){
+    //if player opens up all safe slots, they win.
     win = true;
     return false;
   }
@@ -237,7 +239,7 @@ void playgame(char **showboard, char **realboard, int height, int width, int min
             cin >> confirm;
         }
         if (confirm=="N") continue;
-        else {
+        else {//make a new gameboard.
             string diff;
             cout << "Difficulty?" << endl << "(Simple / Normal / Hard / Customized): ";
             cin >> diff;
