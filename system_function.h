@@ -4,22 +4,48 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
+#include <chrono>
 #include <iomanip>
 using namespace std;
 
-void producemine(int height,int width, char **board, int firstheight, int firstwidth){
-  //first step must not lose, if player choose a bomb in his first step, replace it to other block.
-  bool bury = true;
-  while(bury){
-    srand(time(NULL));
-    int x = rand() % height;
-    int y = rand() % width;
-    if (x >= firstheight-1 && x <= firstheight+1 && y >= firstwidth-1 && y <= firstwidth+1) bury = true;
-    else if (board[x][y] == '*') bury = true;
-    else {
-        board[x][y] = '*';
-        bury = false;
-    }
+void producemine(int height,int width, char **board, int firstheight, int firstwidth, int mines){
+  //first step must be a '0' slot.
+  int startslot = 0;
+  for (int y=0;y<height;y++){
+      for (int x=0;x<width;x++){
+          if (y >= firstheight-1 && y <= firstheight+1 && x >= firstwidth-1 && x <= firstwidth+1) {
+              startslot+=1;
+              continue;
+          }
+      }
+  }
+  int count=0;
+  int *slot = new int[height*width-startslot];
+  for (int y=0;y<height;y++){
+      for (int x=0;x<width;x++){
+          if (y >= firstheight-1 && y <= firstheight+1 && x >= firstwidth-1 && x <= firstwidth+1) {
+              count+=1;
+              continue;
+          }
+          else slot[y*width+x-count]=y*width+x;
+      }//creating a array withour starting slot and its neighbour.
+  }
+  srand((int)time(NULL));
+  for (int i;i<height*width*15;i++){
+      //suffle the values many times inside the slot array.
+      int random1=(rand() % (width*height-startslot));
+      int random2=(rand() % (width*height-startslot));
+      
+      int temp=slot[random1];
+      slot[random1]=slot[random2];
+      slot[random2]=temp;
+  }
+  
+  for (int i=0;i<mines;i++){
+      //take numbers from slot array to be mines.
+      int y=slot[i]/width;
+      int x=slot[i]%width;
+      board[y][x]='*';
   }
 }
   
@@ -242,11 +268,7 @@ void playgame(char **showboard, char **realboard, int height, int width, int min
             int firstheight, firstwidth;
             cin >> firstwidth >> firstheight;
             cout << "Creating minefield..." << endl;
-            int tmp_mines = mines;
-            while(tmp_mines > 0){
-              producemine(height, width, realboard, firstheight, firstwidth);
-              tmp_mines -= 1;
-            }
+            producemine(height, width, realboard, firstheight, firstwidth, mines);
             producerealboard(realboard, height, width);
             open(showboard, realboard, firstheight, firstwidth, height, width);
             step += 1;
