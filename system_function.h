@@ -276,9 +276,9 @@ void playgame(char **showboard, char **realboard, int height, int width, int min
             open(showboard, realboard, firstheight, firstwidth, height, width);
             step += 1;
             bool win=false;
-            bool firststepwin = keepon(showboard, setting.height, setting.width, win, setting.mines);
+            bool firststepwin = keepon(showboard, height, width, win, mines);
             if (firststepwin==false){
-              printboard(showboard, setting.height, setting.width, setting.mines, setting.step);
+              printboard(showboard, height, width, mines, step);
               cout << "You win!" << endl;
               return;
             }
