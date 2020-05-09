@@ -8,7 +8,7 @@ Student name: Kwun Tang Kwai
 UID: 3035709605     
 GitHub Username: KwunTangKwai   
 
-Problem statement:
+Problem statement:                       
 We would like to recreate the famous game "Minesweeper" in C++ in word edition as simlarly as possible, while our game can run only with typing input.
 
 Game description:         
