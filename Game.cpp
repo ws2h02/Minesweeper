@@ -57,11 +57,7 @@ int main(){
           cin >> firstwidth >> firstheight;
         }
     cout << "Creating minefield..." << endl;
-    int tmp_mines = setting.mines;
-    while(tmp_mines > 0){
-      producemine(setting.height, setting.width, realboard, firstheight, firstwidth);
-      tmp_mines -= 1;
-    }
+    producemine(setting.height, setting.width, realboard, firstheight, firstwidth, setting.mines);
     producerealboard(realboard, setting.height, setting.width);
     open(showboard, realboard, firstheight, firstwidth, setting.height, setting.width);
     setting.step += 1;
