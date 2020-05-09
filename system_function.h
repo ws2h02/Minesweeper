@@ -6,6 +6,7 @@
 #include <ctime>
 #include <chrono>
 #include <iomanip>
+#include <string>
 using namespace std;
 
 void producemine(int height,int width, char **board, int firstheight, int firstwidth, int mines){
