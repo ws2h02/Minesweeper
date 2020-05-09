@@ -7,6 +7,7 @@ using namespace std;
 
 void open(char **showboard, char **realboard, int open_height, int open_width, int height, int width){
     if(realboard[open_height][open_width] == '0' && showboard[open_height][open_width] == '-'){
+      //open all neighbouring slots if opened a '0' slot.
       showboard[open_height][open_width] = ' ';
       if(open_height+1 < height){
         open(showboard, realboard, open_height+1, open_width, height, width);
@@ -48,6 +49,7 @@ void flag(char **showboard, int height, int width, int & mines){//what if flag a
     cin >> flag_width >> flag_height;
   }
   if(showboard[flag_height][flag_width] == 'P'){
+    //flag the same slot again will remove the flag instead.
     showboard[flag_height][flag_width] = '-';
     mines += 2;
   }
@@ -80,6 +82,7 @@ void save(int height, int width, int step, int mines, char **showboard, char **r
             fout << realboard[i][j] << " ";
         }
     }
+    //saving all necessary information.
     fout.close();
 }
 
